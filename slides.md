@@ -1,7 +1,9 @@
 TODO
 
 Notes:
-Quick intro about my self then say: "I like to learn about other libraries/frameworks or other practices, and by the way the standard way to do tricky stuf in vanilla.js. That's a good way to learn what are other standards, how others develop, and gives inspiration and new ideas to use the right solution to a given problem".
+Quick intro about my self then say: "I like to learn about other libraries/frameworks or other practices, and also the standard way to do tricky stuf in vanilla.js. I think that's a good way to learn what are other standards, how others develop, and gives inspiration and new ideas to use the right solution to a given problem".
+
+And usually, I like learning by practicing, so...
 
 ---
 
