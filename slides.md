@@ -96,4 +96,4 @@ Who know the basis of how to use it or how it works?
 (Who already used it? => Actually maybe all of you already used them! ==> Check if Angular expose web components)
 Who already developed Web Components?
 
-You probably won't develop Web Component in a near future but having a quick background on it can help you designing good components with today frameworks, and also to know what is standard js vs what value is added by the framework.
+You probably won't develop Web Component in a near future but having a quick background on it can help you designing good components with today frameworks, and also to know what you can do with standard js vs what value is added by the framework.
