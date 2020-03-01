@@ -14,7 +14,7 @@ That's exactly what I would like to share with you today. Learn some standards, 
 Notes:
 Anyway, I have a personal project. The goal is to bring a visual way to create sounds and then music.
 The node editor sticks to the standard API to create sounds, which is the Web Audio API and basically represents sounds with a graph.
-This is implemented with Vue.js.
+This is implemented with Vue.
 
 ---
 
@@ -22,7 +22,7 @@ This is implemented with Vue.js.
 
 Notes:
 A friend of mine has another project. This is an home automation tool. Same kind of visualization, he can plug things together.
-This is implemented with React.js.
+This is implemented with React.
 
 ---
 
@@ -116,3 +116,36 @@ During this talk, we won't dig too much into Stencil.
 Instead we will see what are the Web Standards around Web Components,
 how to use those directly and see how far we can go today in modern browser...
 In pure vanilla js!
+
+---
+
+## Web Components
+
+- Custom elements
+- Shadow DOM
+- HTML templates
+- ES modules
+
+Notes:
+Let's start by the standards. The Web Components consist of 4 specs: Custom elements, shadow DOM, HTML templates,
+and sometimes ES modules is also included as being one of the Web Components standards.
+We will run into each of those to understand the basics.
+Then we will try to implement a real world example and see what are common pitfalls and common practices.
+
+---
+
+## Web Components
+
+- **Custom elements**
+- Shadow DOM
+- HTML templates
+- ES modules
+
+Notes:
+First: custom elements.
+
+---
+
+## Custom elements
+
+Notes:
