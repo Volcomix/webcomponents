@@ -38,6 +38,7 @@ This is implemented with Angular. Well actually this is not true, this is also R
 
 Notes:
 So 3 different projects, same kind of visualization...
+
 What can we do?
 
 ---
@@ -115,13 +116,14 @@ Notes:
 During this talk, we won't dig too much into Stencil.
 Instead we will see what are the Web Standards around Web Components,
 how to use those directly and see how far we can go today in modern browser...
+
 In pure vanilla js!
 
 ---
 
 ## Web Components
 
-- Custom elements
+- Custom elements <!-- .element: class="fragment highlight-blue" -->
 - Shadow DOM
 - HTML templates
 - ES modules
@@ -132,20 +134,124 @@ and sometimes ES modules is also included as being one of the Web Components sta
 We will run into each of those to understand the basics.
 Then we will try to implement a real world example and see what are common pitfalls and common practices.
 
----
-
-## Web Components
-
-- **Custom elements**
-- Shadow DOM
-- HTML templates
-- ES modules
-
-Notes:
 First: custom elements.
 
 ---
 
 ## Custom elements
 
+```js
+class HelloWorld extends HTMLElement {
+  connectedCallback() {
+    this.innerHTML = '<h1>Hello, world!</h1>';
+  }
+}
+
+customElements.define('hello-world', HelloWorld);
+```
+
 Notes:
+With custom elements, web developers can create new HTML tags or customize built-in elements.
+As the name implies, custom elements are HTML elements like div, section or article, but something we can name ourselves,
+that are defined via a browser API.
+When naming a custom element, you have to always put a dash in the name.
+Browser vendors have committed not to create new built-in elements containing a dash in their names to prevent conflicts.
+So in this example, we extend the standard HTMLElement to create a new class that will contain the semantics, behaviors and markup of our component.
+Then we define a tag hello-world that will rely on this class.
+In the connectedCallback lifecycle method, we can access the root of our custom element with the keyword 'this'.
+And as for every built-in HTMLElement, we can read and write a lot of properties, like innerHTML in this example.
+
+---
+
+## Custom elements
+
+```html
+<body>
+  <hello-world></hello-world>
+
+  <script>
+    class HelloWorld extends HTMLElement {
+      connectedCallback() {
+        this.innerHTML = '<h1>Hello, World!</h1>';
+      }
+    }
+
+    customElements.define('hello-world', HelloWorld);
+  </script>
+</body>
+```
+
+Notes:
+Now to use this new custom element, we can just write the tag hello-world in the body of our HTML page and...
+
+---
+
+## Custom elements
+
+![Screenshot 1](assets/screenshot1.png)
+
+Notes:
+...that's it!
+The innerHTML has been updated with our "Hello, World!" message.
+
+What happened exactly...
+
+---
+
+## Custom elements
+
+```html
+<hello-world></hello-world>
+
+<script>
+  class HelloWorld extends HTMLElement {
+    connectedCallback() {
+      this.innerHTML = '<h1>Hello, World!</h1>';
+    }
+  }
+
+  customElements.define('hello-world', HelloWorld);
+</script>
+```
+
+Notes:
+You might have noticed that our custom element is defined after being referenced in the html code.
+Basically, what happened is that the browser tried first to render this tag as an empty inline element,
+then the custom element was defined and the connectedCallback was executed, which rendered the "Hello, World!" message.
+This process is called is called "element upgrade" and allows "progressive enhancement".
+This can be usefull when async work has to be made before rendering your element, and yet having something rendered during this time.
+
+---
+
+## Custom elements
+
+```html
+<hello-world>Loading...</hello-world>
+
+<script>
+  setTimeout(() => {
+    class HelloWorld extends HTMLElement {
+      connectedCallback() {
+        this.innerHTML = '<h1>Hello, World!</h1>';
+      }
+    }
+
+    customElements.define('hello-world', HelloWorld);
+  }, 1000);
+</script>
+```
+
+Notes:
+For example, if we put a content inside the hello-world tag, it will be rendered while the custom elements is being defined,
+and then its innerHTML will be overridden by the "Hello, World!" message.
+
+---
+
+## Custom elements
+
+![Clip 1](assets/clip1.gif)
+
+Notes:
+In action!
+
+Impressive right?

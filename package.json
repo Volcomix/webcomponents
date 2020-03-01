@@ -7,7 +7,7 @@
   "license": "MIT",
   "private": true,
   "scripts": {
-    "start": "live-server --watch=index.html,slides.md --no-browser"
+    "start": "live-server --watch=index.html,slides.md,examples --no-browser"
   },
   "devDependencies": {
     "live-server": "^1.2.1"
