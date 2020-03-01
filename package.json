@@ -1,0 +1,15 @@
+{
+  "name": "webcomponents",
+  "version": "1.0.0",
+  "description": "Presentation slides on Web Components.",
+  "repository": "https://github.com/Volcomix/webcomponents.git",
+  "author": "Volcomix <Volcomix@users.noreply.github.com>",
+  "license": "MIT",
+  "private": true,
+  "scripts": {
+    "start": "browser-sync start --no-open --server --files 'index.html' 'slides.md' 'css'"
+  },
+  "devDependencies": {
+    "browser-sync": "^2.26.7"
+  }
+}
