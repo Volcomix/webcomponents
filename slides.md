@@ -1,99 +1,118 @@
-TODO
+## Intro
 
 Notes:
-Quick intro about my self then say: "I like to learn about other libraries/frameworks or other practices, and also the standard way to do tricky stuf in vanilla.js. I think that's a good way to learn what are other standards, how others develop, and gives inspiration and new ideas to use the right solution to a given problem".
-
-And usually, I like learning by practicing, so...
+Hello, my name is Sébastien and I work at Criteo as a full stack engineer.
+I am particularly attracted by UI developments and I spend a lot of time trying to catch up JavaScript evolution.
+At work, I develop mostly with Angular but I like learning other libraries, frameworks and I especially like learning how to do tricky stuff in vanilla js.
+I think that's a good way to learn what are other standards, how others develop, and gives inspiration and new ideas to use the right solution to a given problem.
+That's exactly what I would like to share with you today. Learn some standards, explore some common practices and hopefully this might help when trying to design components for our favorite frameworks.
 
 ---
 
-[Waane]
+![Waane]()
 
 Notes:
-I have a personal project to do something that looks like that. A node editor seems to me like a good way to visualize and synthesize sound. I code it in Vue.js.
+Anyway, I have a personal project. The goal is to bring a visual way to create sounds and then music.
+The node editor sticks to the standard API to create sounds, which is the Web Audio API and basically represents sounds with a graph.
+This is implemented with Vue.js.
 
 ---
 
-[BooMyLife]
+![BooMyLife]()
 
 Notes:
-A friend of mine do that. This is a home automation software, and the node editor also sounds good here to plug stuffs. He codes it in React.
+A friend of mine has another project. This is an home automation tool. Same kind of visualization, he can plug things together.
+This is implemented with React.js.
 
 ---
 
-[DryMoose]
+![DryMoose]()
 
 Notes:
-And I also have this one. It's a bot to automate trading and the node editor looks good to schedule the bot tasks and their dependencies. I code it in Angular (Actually, this is not true - it is also in React - but that's just to make my point!).
+And I also have this project. This is a bot to automate trading. The node editor is used to design a neural network.
+This is implemented with Angular. Well actually this is not true, this is also React but let's say it's Angular just to make my point.
 
 ---
 
+![3 screenshots]()
+
 Notes:
-What choice do you have?
+So 3 different projects, same kind of visualization. We can probably do something to not redo the same work 3 times.
+What can we do?
 
 ---
 
-[Material Design]
+![Material Design]()
 
 Notes:
-You can write a spec...
+One possibility is to write a spec...
 
 ---
 
-[Material-UI]
+![Material UI]()
 
 Notes:
 Implement it 3 times...
 
 ---
 
-[Vuetify]
+![Vuetify]()
 
 Notes:
 With different implementation and inconsistent decisions...
 
 ---
 
-[Angular Material]
+![Angular Material]()
 
 Notes:
-And one implementation which is out of date regarding the last version of the spec.
+And each implementation evolve at its own speed so all are not up to date in the same time regarding the spec.
 
 ---
 
-[Bootstrap]
+![Bootstrap]()
 
 Notes:
-Or you can create a library using JQuery...
+Another possibility is to create a library using JQuery...
 
 ---
 
-WIP
+![React Bootstrap]()
 
 Notes:
-And create one wrapper per framework
-
-...
+And do 3 wrappers...
 
 ---
 
-[Stencil/Ionic]
+![BootstrapVue]()
 
 Notes:
-Or you can develop your components only once, and use it directly with you favorite library/framework (Angular, React, Vue), with almost nothing to do (minimal config to get the Web Components)
+Removing jQuery 3 times...
 
 ---
 
-# Web Components
+![ng-bootstrap]()
 
 Notes:
-This last solution is called Web Components
+And once again each of those is updated at its own speed.
 
-You might have heard about them for a long time, they have been around for a while.
+---
 
-Who already heard about Web Components?
-Who know the basis of how to use it or how it works?
-(Who already used it? => Actually maybe all of you already used them! ==> Check if Angular expose web components)
-Who already developed Web Components?
+![Ionic Framework]()
 
-You probably won't develop Web Component in a near future but having a quick background on it can help you designing good components with today frameworks, and also to know what you can do with standard js vs what value is added by the framework.
+Notes:
+Or...
+You can rely on web standards!
+Internally, Ionic rely on Stencil to build components and expose them in a way they can be used with React, Vue and Angular.
+These components are exposed in the web standards way called...
+
+---
+
+## Web Components
+
+Notes:
+... Web Components!
+During this talk, we won't dig too much into Stencil.
+Instead we will see what are the Web Standards around Web Components,
+how to use those directly and see how far we can go today in modern browser...
+In pure vanilla js!
