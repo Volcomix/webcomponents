@@ -37,7 +37,7 @@ This is implemented with Angular. Well actually this is not true, this is also R
 ![3 screenshots]()
 
 Notes:
-So 3 different projects, same kind of visualization. We can probably do something to not redo the same work 3 times.
+So 3 different projects, same kind of visualization...
 What can we do?
 
 ---
