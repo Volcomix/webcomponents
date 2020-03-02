@@ -1,4 +1,4 @@
-## Intro
+## Title
 
 Notes:
 Hello, my name is Sébastien and I work at Criteo as a full stack engineer.
@@ -8,42 +8,6 @@ I think that's a good way to learn what are other standards, how others develop,
 That's exactly what I would like to share with you today. Learn some standards, explore some common practices and hopefully this might help when trying to design components for our favorite frameworks.
 
 ---
-
-![Waane]()
-
-Notes:
-Anyway, I have a personal project. The goal is to bring a visual way to create sounds and then music.
-The node editor sticks to the standard API to create sounds, which is the Web Audio API and basically represents sounds with a graph.
-This is implemented with Vue.
-
----
-
-![BooMyLife]()
-
-Notes:
-A friend of mine has another project. This is an home automation tool. Same kind of visualization, he can plug things together.
-This is implemented with React.
-
----
-
-![DryMoose]()
-
-Notes:
-And I also have this project. This is a bot to automate trading. The node editor is used to design a neural network.
-This is implemented with Angular. Well actually this is not true, this is also React but let's say it's Angular just to make my point.
-
----
-
-![3 screenshots]()
-
-Notes:
-So 3 different projects, same kind of visualization...
-
-What can we do?
-
----
-
-## Alternate intro
 
 ![Screenshots mixing various basic components]()
 
@@ -245,7 +209,7 @@ Progressive enhancement
     }
 
     customElements.define('hello-world', HelloWorld);
-  }, 1000);
+  }, 3000);
 </script>
 ```
 
@@ -286,22 +250,6 @@ When implementing a custom element, you can define special lifecycle hooks.
 
 Customized built-in elements
 
-```js
-class CustomizedButton extends HTMLButtonElement {
-  ...
-}
-
-customElements.define("customized-button", CustomizedButton,
-                      { extends: "button" });
-```
-
-Notes:
-Till now, we saw how to create new tags with what we called "autonomous custom elements".
-It is also possible to customize built-in elements by extending it rather than extending HTMLElement,
-and by adding the "extends" option when defining the element.
-
----
-
 ```html
 <button is="customized-button">Click Me!</button>
 
@@ -316,6 +264,10 @@ and by adding the "extends" option when defining the element.
 ```
 
 Notes:
+Till now, we saw how to create new tags with what we called "autonomous custom elements".
+It is also possible to customize built-in elements by extending it rather than extending HTMLElement,
+and by adding the "extends" option when defining the element.
+
 To add this kind of element in HTML markdown, you can't use it like before, with a customized-button tag.
 Instead, you have to use a button element with the "is" attribute.
 
@@ -397,9 +349,14 @@ Unless it was attached with mode closed.
 ```html
 <hello-world></hello-world>
 <h1>I am not styled :(</h1>
+```
+
+```html
 <script>
   class HelloWorld extends HTMLElement {
-    connectedCallback() {
+    constructor() {
+      super();
+
       this.attachShadow({ mode: 'open' });
       this.shadowRoot.innerHTML = `
         <style>h1 { color: blue; }</style>
@@ -423,3 +380,88 @@ Notes:
 This gives pretty much the same as the first hello world example with custom elements,
 but here the component content appears in the element shadow DOM.
 And the style of h1 elements is scopped to the hello world shadow DOM.
+
+---
+
+Composition and slots
+
+```html
+<hello-world>Tech World</hello-world>
+
+<script>
+  class HelloWorld extends HTMLElement {
+    constructor() {
+      super();
+
+      this.attachShadow({ mode: 'open' });
+      this.shadowRoot.innerHTML = '<h1>Hello, <slot></slot>!</h1>';
+    }
+  }
+
+  customElements.define('hello-world', HelloWorld);
+</script>
+```
+
+Notes:
+By default, if an element has shadow DOM, the shadow tree is rendered instead of the element's children.
+To allow children to render, you need to add placeholders for them in your shadow tree.
+This is when we should use slots.
+In this example we used the slot element inside the shadow DOM.
+The content of the hello-world tag when used in the HTML markup will be rendered inside this slot element.
+
+---
+
+![Slots](assets/example6.png)
+
+Notes:
+You can see here that Tech World has been rendered between the comma and the exclamation mark.
+You can also notice that the devtools show a text element inside the slot.
+If you click reveal in the devtools, it will highlight the Tech world text element.
+This is the difference between light DOM and shadow DOM, which we will see right now...
+
+---
+
+Light DOM
+
+```html
+<hello-world>
+  <span>Hello</span>
+  <span slot="who">Tech</span>
+  <span slot="who">World</span>
+</hello-world>
+```
+
+Shadow DOM
+
+```js
+this.shadowRoot.innerHTML = `
+  <h1>
+    <slot>Fallback content</slot>
+    <i>
+      <slot name="who"></slot>
+    </i>
+  </h1>
+`;
+```
+
+Notes:
+The markup a user of your component writes is called "light DOM". This DOM lives outside the component's shadow DOM.
+It is the element's actual children.
+When a component author writes shadow DOM, he can define how to render markup that's authored by the consumer of your component.
+A user of your component can style the light DOM and this style will be applied.
+Here is a more tricky example just so you can see what kind of things you can do.
+A component can define zero or more slots in its shadow DOM. Slots can be empty or provide fallback content.
+If the user doesn't provide light DOM content, the slot renders its fallback content.
+You can also create named slots. Named slots are specific holes in your shadow DOM that users reference by name.
+Now let's see what will happen...
+
+---
+
+Flattened DOM tree
+
+![Flattened DOM tree](assets/example7.png)
+
+Notes:
+Both words Tech and World have been concatenated into the same slot.
+As the spans are rendered inside an italic tag, they rendered in italic.
+The fallback content has been replaced with the span containing "hello".

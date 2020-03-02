@@ -2,11 +2,10 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <title>Example 5</title>
+    <title>Example 6</title>
   </head>
   <body>
-    <hello-world></hello-world>
-    <h1>I am not styled :(</h1>
+    <hello-world>Tech World</hello-world>
 
     <script>
       class HelloWorld extends HTMLElement {
@@ -14,10 +13,7 @@
           super();
 
           this.attachShadow({ mode: 'open' });
-          this.shadowRoot.innerHTML = `
-            <style>h1 { color: blue; }</style>
-            <h1>Hello, World!</h1>
-          `;
+          this.shadowRoot.innerHTML = '<h1>Hello, <slot></slot>!</h1>';
         }
       }
 
