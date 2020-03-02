@@ -109,7 +109,7 @@ These components are exposed in the web standards way called...
 
 ---
 
-## Web Components
+# Web Components
 
 Notes:
 ... Web Components!
@@ -121,7 +121,7 @@ In pure vanilla js!
 
 ---
 
-## Web Components
+## Specifications
 
 - Custom elements <!-- .element: class="fragment highlight-blue" -->
 - Shadow DOM
@@ -138,7 +138,7 @@ First: custom elements.
 
 ---
 
-## Custom elements
+Autonomous custom elements
 
 ```js
 class HelloWorld extends HTMLElement {
@@ -158,12 +158,11 @@ When naming a custom element, you have to always put a dash in the name.
 Browser vendors have committed not to create new built-in elements containing a dash in their names to prevent conflicts.
 So in this example, we extend the standard HTMLElement to create a new class that will contain the semantics, behaviors and markup of our component.
 Then we define a tag hello-world that will rely on this class.
+By extending HTMLElement, we are creating what is called an "autonomous custom element".
 In the connectedCallback lifecycle method, we can access the root of our custom element with the keyword 'this'.
 And as for every built-in HTMLElement, we can read and write a lot of properties, like innerHTML in this example.
 
 ---
-
-## Custom elements
 
 ```html
 <body>
@@ -186,9 +185,7 @@ Now to use this new custom element, we can just write the tag hello-world in the
 
 ---
 
-## Custom elements
-
-![Screenshot 1](assets/screenshot1.png)
+![Screenshot 1](assets/example1.png)
 
 Notes:
 ...that's it!
@@ -197,8 +194,6 @@ The innerHTML has been updated with our "Hello, World!" message.
 What happened exactly...
 
 ---
-
-## Custom elements
 
 ```html
 <hello-world></hello-world>
@@ -223,7 +218,7 @@ This can be usefull when async work has to be made before rendering your element
 
 ---
 
-## Custom elements
+Progressive enhancement
 
 ```html
 <hello-world>Loading...</hello-world>
@@ -247,11 +242,73 @@ and then its innerHTML will be overridden by the "Hello, World!" message.
 
 ---
 
-## Custom elements
-
-![Clip 1](assets/clip1.gif)
+![Clip 1](assets/example2.gif)
 
 Notes:
 In action!
 
 Impressive right?
+
+---
+
+## Lifecycle hooks
+
+- constructor
+- connectedCallback
+- disconnectedCallback
+- attributeChangedCallback(attrName, oldVal, newVal)
+- adoptedCallback
+
+Notes:
+When implementing a custom element, you can define special lifecycle hooks.
+
+- constructor is called when an instance of an element is created or upgraded.
+- connectedCallback is called every time the element is inserted into the DOM.
+- disconnectedCallback is called every time the element is removed from the DOM.
+- attributeChangedCallback is called when an observed attribute has been added, removed, updated, or replaced.
+  Also called for initial values when an element is created by the parser, or upgraded. Only attributes listed in the observedAttributes property will receive this callback.
+- adoptedCallback is called when the custom element has been moved into a new document
+
+---
+
+Customized built-in elements
+
+```js
+class CustomizedButton extends HTMLButtonElement {
+  ...
+}
+
+customElements.define("customized-button", CustomizedButton,
+                      { extends: "button" });
+```
+
+Notes:
+It is also possible to customize built-in elements by extending it rather than extending HTMLElement,
+and adding the "extends" option when defining the element.
+
+---
+
+```html
+<button is="customized-button">Click Me!</button>
+
+<script>
+  class CustomizedButton extends HTMLButtonElement {
+    ...
+  }
+
+  customElements.define("customized-button", CustomizedButton,
+                        { extends: "button" });
+</script>
+```
+
+Notes:
+To add this kind of element in HTML markdown, you can't use it like before, with a customized-button tag.
+Instead, you have use a button element with the "is" attribute.
+
+---
+
+![Caniuse custom elements](assets/caniuse-custom-elements.png)
+
+Notes:
+As you can see in this figure, autonomous custom elements are currently supported by all major modern browsers.
+Only customized built-in elements are not supported by Safari.
