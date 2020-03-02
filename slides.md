@@ -43,6 +43,19 @@ What can we do?
 
 ---
 
+## Alternate intro
+
+![Screenshots mixing various basic components]()
+
+Notes:
+Let's say you need to create basic UI components and you would like to share them between different projects.
+Each project being implemented with various libraries or frameworks,
+Like our favorite ones: React, Vue or Angular for example.
+
+What can we do?
+
+---
+
 ![Material Design]()
 
 Notes:
@@ -81,7 +94,7 @@ Another possibility is to create a library using JQuery...
 ![React Bootstrap]()
 
 Notes:
-And do 3 wrappers...
+And implement 3 wrappers...
 
 ---
 
@@ -185,7 +198,7 @@ Now to use this new custom element, we can just write the tag hello-world in the
 
 ---
 
-![Screenshot 1](assets/example1.png)
+![Autonomous custom element](assets/example1.png)
 
 Notes:
 ...that's it!
@@ -242,7 +255,7 @@ and then its innerHTML will be overridden by the "Hello, World!" message.
 
 ---
 
-![Clip 1](assets/example2.gif)
+![Progressive enhancement](assets/example2.gif)
 
 Notes:
 In action!
@@ -283,8 +296,9 @@ customElements.define("customized-button", CustomizedButton,
 ```
 
 Notes:
+Till now, we saw how to create new tags with what we called "autonomous custom elements".
 It is also possible to customize built-in elements by extending it rather than extending HTMLElement,
-and adding the "extends" option when defining the element.
+and by adding the "extends" option when defining the element.
 
 ---
 
@@ -303,7 +317,7 @@ and adding the "extends" option when defining the element.
 
 Notes:
 To add this kind of element in HTML markdown, you can't use it like before, with a customized-button tag.
-Instead, you have use a button element with the "is" attribute.
+Instead, you have to use a button element with the "is" attribute.
 
 ---
 
@@ -312,3 +326,100 @@ Instead, you have use a button element with the "is" attribute.
 Notes:
 As you can see in this figure, autonomous custom elements are currently supported by all major modern browsers.
 Only customized built-in elements are not supported by Safari.
+Polyfills exist for the unsupported features.
+
+---
+
+## Specifications
+
+- Custom elements
+- Shadow DOM <!-- .element: class="fragment highlight-blue" -->
+- HTML templates
+- ES modules
+
+Notes:
+Now we can define custom tags to embed our own component behavior,
+Let's introduce the "Shadow DOM".
+
+---
+
+![Shadow DOM](assets/shadow-dom.jpg)
+
+Notes:
+The shadow DOM is an encapsulated version of the DOM.
+This allows authors to effectively isolate DOM fragments, including anything that could be used as a CSS selector and the styles associated with them.
+The shadow DOM allows hidden DOM trees to be attached to elements in the regular DOM tree.
+This shadow DOM tree starts with a shadow root, which can be attached to any elements you want, in the same way as the normal DOM.
+Generally, any content inside of the document’s scope is referred to as the light DOM, and anything inside a shadow root is referred to as the shadow DOM.
+
+---
+
+![Video element](assets/example3.png)
+
+Notes:
+Note that the shadow DOM is not a new thing by any means.
+Browsers have used it for a long time to encapsulate the inner structure of an element.
+Think for example of a "video" element, with the default browser controls exposed. All you see in the DOM is the video element, but it contains a series of buttons and other controls inside its shadow DOM.
+The shadow DOM spec has made it so that you are allowed to actually manipulate the shadow DOM of your own custom elements.
+
+---
+
+```html
+<span id="an-element"></span>
+
+<script>
+  const anElement = document.getElementById('an-element');
+  const shadowRoot = anElement.attachShadow({ mode: 'open' });
+  shadowRoot.innerHTML = '<h1>Hello, Shadow DOM!</h1>';
+</script>
+```
+
+Notes:
+Here is an example of how you can attach a shadow root so the element can gain its shadow DOM.
+The mode "open" means that you can access the shadow DOM using JavaScript written in the main page context.
+If you attach a shadow root to an element with mode closed, you won't be able to access the shadow DOM from the outside.
+This is the case with built-in elements that contain shadow DOMs, such as <video>.
+
+---
+
+![Hello, Shadow DOM!](assets/example4.png)
+
+Notes:
+This is what is rendered when running this example.
+You can notice the shadow root in the browser devtools.
+As you can also see in the browser console, CSS selectors cannot find something in a shadow root when it is called from the document.
+Instead, you have to execute the CSS selector in the shadow root to find it.
+You can also see another thing here: when attaching a shadow root to an element, calling the shadowRoot property into this element will return the shadow root.
+Unless it was attached with mode closed.
+
+---
+
+```html
+<hello-world></hello-world>
+<h1>I am not styled :(</h1>
+<script>
+  class HelloWorld extends HTMLElement {
+    connectedCallback() {
+      this.attachShadow({ mode: 'open' });
+      this.shadowRoot.innerHTML = `
+        <style>h1 { color: blue; }</style>
+        <h1>Hello, World!</h1>
+      `;
+    }
+  }
+  customElements.define('hello-world', HelloWorld);
+</script>
+```
+
+Notes:
+Shadow DOM is particularly useful when creating custom elements. Use shadow DOM to compartmentalize an element's HTML, CSS, and JS, thus producing a "web component".
+Here is an example of a custom element that attaches shadow DOM to itself, encapsulating its DOM and CSS.
+
+---
+
+![Shadow DOM in custom element](assets/example5.png)
+
+Notes:
+This gives pretty much the same as the first hello world example with custom elements,
+but here the component content appears in the element shadow DOM.
+And the style of h1 elements is scopped to the hello world shadow DOM.

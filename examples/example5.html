@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Example 5</title>
+  </head>
+  <body>
+    <hello-world></hello-world>
+    <h1>I am not styled :(</h1>
+
+    <script>
+      class HelloWorld extends HTMLElement {
+        connectedCallback() {
+          this.attachShadow({ mode: 'open' });
+          this.shadowRoot.innerHTML = `
+            <style>h1 { color: blue; }</style>
+            <h1>Hello, World!</h1>
+          `;
+        }
+      }
+
+      customElements.define('hello-world', HelloWorld);
+    </script>
+  </body>
+</html>
