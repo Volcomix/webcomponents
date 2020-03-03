@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Component styling itself</title>
+    <style>
+      hello-world {
+        color: yellow;
+      }
+    </style>
+  </head>
+  <body>
+    <hello-world></hello-world>
+
+    <script>
+      class HelloWorld extends HTMLElement {
+        constructor() {
+          super();
+
+          this.attachShadow({ mode: 'open' });
+          this.shadowRoot.innerHTML = `
+            <style>
+              :host {
+                display: block; /* by default, display: inline */
+                padding: 4px;
+                background-color: blue;
+                color: red;
+              }
+
+              h1 {
+                background-color: orangered;
+              }
+            </style>
+            <h1>Hello, World!</h1>
+          `;
+        }
+      }
+
+      customElements.define('hello-world', HelloWorld);
+    </script>
+  </body>
+</html>

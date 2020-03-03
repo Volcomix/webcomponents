@@ -583,3 +583,95 @@ Notes:
 Both words Tech and World have been concatenated into the same slot.
 As the spans are rendered inside an italic tag, they rendered in italic.
 The fallback content has been replaced with the span containing "hello".
+
+---
+
+Styling
+
+```html
+<style>
+  hello-world {
+    color: yellow;
+  }
+</style>
+```
+
+```js
+this.shadowRoot.innerHTML = `
+  <style>
+    :host {
+      display: block; /* by default, display: inline */
+      padding: 4px;
+      background-color: blue;
+      color: red;
+    }
+
+    h1 {
+      background-color: orangered;
+    }
+  </style>
+  <h1>Hello, World!</h1>
+`;
+```
+
+Notes:
+There are many options for styling web components.
+A component that uses shadow DOM can be styled by the main page,
+define its own styles,
+or provide hooks (in the form of CSS custom properties) for users to override defaults.
+The most useful feature of shadow DOM is scoped CSS:
+
+- CSS selectors from the outer page don't apply inside your component.
+- Styles defined inside don't bleed out. They're scoped to the host element.
+
+CSS selectors used inside shadow DOM apply locally to your component. In practice, this means we can use common id/class names again, without worrying about conflicts elsewhere on the page. Simpler CSS selectors are a best practice inside Shadow DOM. They're also good for performance.
+
+Custom elements have display inline by default so we changed it to block.
+Defining the display of custom elements is a best practice (even though you put something else than block).
+One gotcha with :host is that rules in the parent page have higher specificity than :host rules defined in the element. That is, outside styles win. This allows users to override your top-level styling from the outside. Also, :host only works in the context of a shadow root, so you can't use it outside of shadow DOM.
+
+---
+
+![Component styling itself](assets/component-styling-itself.png)
+
+Notes:
+The :host background-color has been applied to the hello world tag.
+The h1 background-color was applied to the h1 only.
+The yellow color that was defined in the main page has overridden the red color defined in :host.
+
+---
+
+Creating style hooks using CSS custom properties
+
+```html
+<style>
+  hello-world {
+    --header-background: orangered;
+  }
+</style>
+```
+
+```js
+this.shadowRoot.innerHTML = `
+  <style>
+    ...
+
+    h1 {
+      background-color: var(--header-background);
+    }
+  </style>
+  <h1>Hello, World!</h1>
+`;
+```
+
+Notes:
+Users can tweak internal styles if the component's author provides styling hooks using CSS custom properties. Conceptually, the idea is similar to slot. You create "style placeholders" for users to override.
+
+---
+
+![Style hook](assets/style-hook.png)
+
+Notes:
+In this example, if we don't provide the style hook,
+the user can only define the background-color for the hello-world tag.
+By using a custom property, he can also change the h1 background-color.
