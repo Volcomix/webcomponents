@@ -233,7 +233,7 @@ Impressive right?
 - constructor
 - connectedCallback
 - disconnectedCallback
-- attributeChangedCallback(attrName, oldVal, newVal)
+- attributeChangedCallback(attrName, oldVal, newVal) <!-- .element: class="fragment highlight-blue" -->
 - adoptedCallback
 
 Notes:
@@ -246,14 +246,46 @@ When implementing a custom element, you can define special lifecycle hooks.
   Also called for initial values when an element is created by the parser, or upgraded. Only attributes listed in the observedAttributes property will receive this callback.
 - adoptedCallback is called when the custom element has been moved into a new document
 
+Let's dig a bit more on how to observe changes to attributes.
+
 ---
 
 Observing changes to attributes
 
+```html
+<hello-world who="Tech World"></hello-world>
+```
+
+<pre class="stretch"><code class="javascript">
+class HelloWorld extends HTMLElement {
+  static get observedAttributes() {
+    return ['who'];
+  }
+
+  constructor() {
+    super();
+    this.innerHTML = '<h1>Hello, <span id="wrapper"></span>!</h1>';
+  }
+
+  attributeChangedCallback(name, oldValue, newValue) {
+    if (name === 'who') {
+      this.querySelector('#wrapper').innerHTML = newValue;
+    }
+  }
+}
+</code></pre>
+
 Notes:
 HTML attributes are a convenient way for users to declare initial state.
-Elements can react to attribute changes by defining a attributeChangedCallback.
+Elements can react to attribute changes by defining an attributeChangedCallback.
 The browser will call this method for every change to attributes listed in the observedAttributes array.
+
+---
+
+![Observing changes to attributes](assets/observing-changes-to-attributes.gif)
+
+Notes:
+Every change to the who attributes triggers a change to the wrapper content.
 
 ---
 
