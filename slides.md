@@ -258,13 +258,13 @@ Observing changes to attributes
 
 <pre class="stretch"><code class="javascript">
 class HelloWorld extends HTMLElement {
-  static get observedAttributes() {
-    return ['who'];
-  }
-
   constructor() {
     super();
     this.innerHTML = '<h1>Hello, <span id="wrapper"></span>!</h1>';
+  }
+
+  static get observedAttributes() {
+    return ['who'];
   }
 
   attributeChangedCallback(name, oldValue, newValue) {
