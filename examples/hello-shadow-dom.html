@@ -8,7 +8,7 @@
     <span id="an-element"></span>
 
     <script>
-      const anElement = document.getElementById('an-element');
+      const anElement = document.querySelector('#an-element');
       const shadowRoot = anElement.attachShadow({ mode: 'open' });
       shadowRoot.innerHTML = '<h1>Hello, Shadow DOM!</h1>';
     </script>

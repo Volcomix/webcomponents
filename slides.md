@@ -428,7 +428,7 @@ The shadow DOM spec has made it so that you are allowed to actually manipulate t
 <span id="an-element"></span>
 
 <script>
-  const anElement = document.getElementById('an-element');
+  const anElement = document.querySelector('#an-element');
   const shadowRoot = anElement.attachShadow({ mode: 'open' });
   shadowRoot.innerHTML = '<h1>Hello, Shadow DOM!</h1>';
 </script>
@@ -675,3 +675,63 @@ Notes:
 In this example, if we don't provide the style hook,
 the user can only define the background-color for the hello-world tag.
 By using a custom property, he can also change the h1 background-color.
+
+---
+
+## Specifications
+
+- Custom elements
+- Shadow DOM
+- HTML templates <!-- .element: class="fragment highlight-blue" -->
+- ES modules
+
+Notes:
+From the beginning, you probably noticed that we have always written our component markup inside strings.
+I don't know about you but I don't like it that much.
+Fortunately, we can write them in another way, thanks to HTML templates.
+
+---
+
+```html
+<hello-world></hello-world>
+
+<template id="hello-world-template">
+  <style>
+    h1 {
+      color: green;
+    }
+  </style>
+  <h1>Hello, World!</h1>
+</template>
+```
+
+```html
+<script>
+  const template = document.querySelector('#hello-world-template');
+
+  class HelloWorld extends HTMLElement {
+    constructor() {
+      super();
+      this.attachShadow({ mode: 'open' });
+      this.shadowRoot.appendChild(template.content.cloneNode(true));
+    }
+  }
+
+  customElements.define('hello-world', HelloWorld);
+</script>
+```
+
+Notes:
+The template element allows you to declare fragments of the DOM which are parsed,
+inert at page load,
+and can be activated later at runtime.
+It's another API primitive in the web components family.
+Templates are an ideal placeholder for declaring the structure of a custom element.
+
+---
+
+![HTML template](assets/html-template.png)
+
+Notes:
+This technique cuts down on HTML parse costs because the content of the template is only parsed once,
+whereas calling innerHTML on the shadowRoot will parse the HTML for each instance.
