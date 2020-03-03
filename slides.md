@@ -678,6 +678,14 @@ By using a custom property, he can also change the h1 background-color.
 
 ---
 
+![Caniuse shadow DOM](assets/caniuse-shadow-dom.png)
+
+Notes:
+Shadom DOM is supported by all major modern browsers.
+Some CSS selectors do not work or are buggy but the most important ones do.
+
+---
+
 ## Specifications
 
 - Custom elements
@@ -735,3 +743,10 @@ Templates are an ideal placeholder for declaring the structure of a custom eleme
 Notes:
 This technique cuts down on HTML parse costs because the content of the template is only parsed once,
 whereas calling innerHTML on the shadowRoot will parse the HTML for each instance.
+
+---
+
+![Caniuse HTML templates](assets/caniuse-html-templates.png)
+
+Notes:
+HTML templates are supported by all major modern browsers.
