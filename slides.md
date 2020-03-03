@@ -289,6 +289,73 @@ Every change to the who attributes triggers a change to the wrapper content.
 
 ---
 
+Reflecting properties
+
+```js
+h1.id = 'header';
+h1.hidden = true;
+```
+
+to attributes
+
+```html
+<h1 id="header" hidden>Hello, World!</h1>
+```
+
+Notes:
+Who knows what is the difference between properties and attributes?
+Properties are basically JavaScript properties that are accessible on HTML element instances.
+Attributes are what you can define in HTML markup.
+You can access them in JavaScript with the getAttribute, hasAttribute and setAttribute methods on HTML element instances.
+Properties can be any primitive or complexe type.
+Attributes are always strings.
+It's common for HTML properties to reflect their value back to the DOM as an HTML attribute.
+For example, when the values of hidden or id are changed in JS,
+the values are applied to the live DOM as attributes.
+This is called "reflecting properties to attributes".
+Almost every property in HTML does this. Why? Attributes are also useful for configuring an element declaratively and certain APIs like accessibility and CSS selectors rely on attributes to work.
+Reflecting a property is useful anywhere you want to keep the element's DOM representation in sync with its JavaScript state. One reason you might want to reflect a property is so user-defined styling applies when JS state changes.
+
+---
+
+![Built-in reflected properties](assets/built-in-reflected-properties.gif)
+
+Notes:
+You can see it in action here using the browser devtools.
+
+---
+
+```js
+class HelloWorld extends HTMLElement {
+  /* ... */
+
+  get who() {
+    return this.getAttribute('who');
+  }
+
+  set who(value) {
+    this.setAttribute('who', value);
+  }
+}
+```
+
+Notes:
+A common way to reflect properties to attributes is by wrapping getAttribute and setAttribute methods
+to a getter and a setter.
+This avoid us to store them in private variable and prevent the risk to have them desynchronized.
+
+---
+
+![Reflecting properties to attributes](assets/reflecting-properties-to-attributes.gif)
+
+Notes:
+If we get back to our hello world example, you can see that we can manipulate the attribute
+by calling the getter and the setter.
+When calling the setter, attributeChangedCallback is called and the content is updated.
+Relying on getters and setters can make your life easier when implementing your own component.
+
+---
+
 Customized built-in elements
 
 ```html

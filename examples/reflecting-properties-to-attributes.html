@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Reflecting properties to attributes</title>
+  </head>
+  <body>
+    <hello-world who="Tech World"></hello-world>
+
+    <script>
+      class HelloWorld extends HTMLElement {
+        static get observedAttributes() {
+          return ['who'];
+        }
+
+        constructor() {
+          super();
+          this.innerHTML = '<h1>Hello, <span id="wrapper"></span>!</h1>';
+        }
+
+        attributeChangedCallback(name, oldValue, newValue) {
+          if (name === 'who') {
+            this.querySelector('#wrapper').innerHTML = newValue;
+          }
+        }
+
+        get who() {
+          return this.getAttribute('who');
+        }
+
+        set who(value) {
+          this.setAttribute('who', value);
+        }
+      }
+
+      customElements.define('hello-world', HelloWorld);
+    </script>
+  </body>
+</html>
