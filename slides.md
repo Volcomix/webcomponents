@@ -347,8 +347,16 @@ Unless it was attached with mode closed.
 ---
 
 ```html
+<style>
+  h1 {
+    background-color: orangered;
+  }
+</style>
+```
+
+```html
 <hello-world></hello-world>
-<h1>I am not styled :(</h1>
+<h1>I am not green</h1>
 ```
 
 ```html
@@ -359,7 +367,7 @@ Unless it was attached with mode closed.
 
       this.attachShadow({ mode: 'open' });
       this.shadowRoot.innerHTML = `
-        <style>h1 { color: blue; }</style>
+        <style>h1 { color: green; }</style>
         <h1>Hello, World!</h1>
       `;
     }
@@ -379,7 +387,9 @@ Here is an example of a custom element that attaches shadow DOM to itself, encap
 Notes:
 This gives pretty much the same as the first hello world example with custom elements,
 but here the component content appears in the element shadow DOM.
-And the style of h1 elements is scopped to the hello world shadow DOM.
+The orangered background color defined at document level does not traverse the shadow DOM,
+And is not applied to the hello world component.
+In the other hand, the green text color is scopped to the hello world shadow DOM.
 
 ---
 
