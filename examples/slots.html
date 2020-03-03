@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Slots</title>
+  </head>
+  <body>
+    <hello-world>Tech World</hello-world>
+
+    <script>
+      class HelloWorld extends HTMLElement {
+        constructor() {
+          super();
+
+          this.attachShadow({ mode: 'open' });
+          this.shadowRoot.innerHTML = '<h1>Hello, <slot></slot>!</h1>';
+        }
+      }
+
+      customElements.define('hello-world', HelloWorld);
+    </script>
+  </body>
+</html>

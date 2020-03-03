@@ -162,7 +162,7 @@ Now to use this new custom element, we can just write the tag hello-world in the
 
 ---
 
-![Autonomous custom element](assets/example1.png)
+![Autonomous custom element](assets/autonomous-custom-element.png)
 
 Notes:
 ...that's it!
@@ -209,7 +209,7 @@ Progressive enhancement
     }
 
     customElements.define('hello-world', HelloWorld);
-  }, 3000);
+  }, 5000);
 </script>
 ```
 
@@ -219,7 +219,7 @@ and then its innerHTML will be overridden by the "Hello, World!" message.
 
 ---
 
-![Progressive enhancement](assets/example2.gif)
+![Progressive enhancement](assets/progressive-enhancement.gif)
 
 Notes:
 In action!
@@ -245,6 +245,15 @@ When implementing a custom element, you can define special lifecycle hooks.
 - attributeChangedCallback is called when an observed attribute has been added, removed, updated, or replaced.
   Also called for initial values when an element is created by the parser, or upgraded. Only attributes listed in the observedAttributes property will receive this callback.
 - adoptedCallback is called when the custom element has been moved into a new document
+
+---
+
+Observing changes to attributes
+
+Notes:
+HTML attributes are a convenient way for users to declare initial state.
+Elements can react to attribute changes by defining a attributeChangedCallback.
+The browser will call this method for every change to attributes listed in the observedAttributes array.
 
 ---
 
@@ -306,7 +315,7 @@ Generally, any content inside of the document’s scope is referred to as the li
 
 ---
 
-![Video element](assets/example3.png)
+![Video element](assets/video-element.png)
 
 Notes:
 Note that the shadow DOM is not a new thing by any means.
@@ -334,7 +343,7 @@ This is the case with built-in elements that contain shadow DOMs, such as <video
 
 ---
 
-![Hello, Shadow DOM!](assets/example4.png)
+![Hello, Shadow DOM!](assets/hello-shadow-dom.png)
 
 Notes:
 This is what is rendered when running this example.
@@ -382,7 +391,7 @@ Here is an example of a custom element that attaches shadow DOM to itself, encap
 
 ---
 
-![Shadow DOM in custom element](assets/example5.png)
+![Shadow DOM in custom element](assets/shadow-dom-in-custom-element.png)
 
 Notes:
 This gives pretty much the same as the first hello world example with custom elements,
@@ -421,7 +430,7 @@ The content of the hello-world tag when used in the HTML markup will be rendered
 
 ---
 
-![Slots](assets/example6.png)
+![Slots](assets/slots.png)
 
 Notes:
 You can see here that Tech World has been rendered between the comma and the exclamation mark.
@@ -469,7 +478,7 @@ Now let's see what will happen...
 
 Flattened DOM tree
 
-![Flattened DOM tree](assets/example7.png)
+![Flattened DOM tree](assets/flattened-dom-tree.png)
 
 Notes:
 Both words Tech and World have been concatenated into the same slot.

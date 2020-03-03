@@ -2,16 +2,14 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <title>Example 5</title>
-    <style>
-      h1 {
-        background-color: orangered;
-      }
-    </style>
+    <title>Flattened DOM tree</title>
   </head>
   <body>
-    <hello-world></hello-world>
-    <h1>I am not green</h1>
+    <hello-world>
+      <span>Hello</span>
+      <span slot="who">Tech</span>
+      <span slot="who">World</span>
+    </hello-world>
 
     <script>
       class HelloWorld extends HTMLElement {
@@ -20,8 +18,12 @@
 
           this.attachShadow({ mode: 'open' });
           this.shadowRoot.innerHTML = `
-            <style>h1 { color: green; }</style>
-            <h1>Hello, World!</h1>
+            <h1>
+              <slot>Fallback content</slot>
+              <i>
+                <slot name="who"></slot>
+              </i>
+            </h1>
           `;
         }
       }
