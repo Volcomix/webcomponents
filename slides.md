@@ -103,11 +103,11 @@ In pure vanilla js!
 - Custom elements <!-- .element: class="fragment highlight-blue" -->
 - Shadow DOM
 - HTML templates
-- ES modules
+- JavaScript modules
 
 Notes:
 Let's start by the standards. The Web Components consist of 4 specs: Custom elements, shadow DOM, HTML templates,
-and sometimes ES modules is also included as being one of the Web Components standards.
+and sometimes JavaScript modules is also included as being one of the Web Components standards.
 We will run into each of those to understand the basics.
 Then we will try to implement a real world example and see what are common pitfalls and common practices.
 
@@ -395,7 +395,7 @@ Polyfills exist for the unsupported features.
 - Custom elements
 - Shadow DOM <!-- .element: class="fragment highlight-blue" -->
 - HTML templates
-- ES modules
+- JavaScript modules
 
 Notes:
 Now we can define custom tags to embed our own component behavior,
@@ -691,7 +691,7 @@ Some CSS selectors do not work or are buggy but the most important ones do.
 - Custom elements
 - Shadow DOM
 - HTML templates <!-- .element: class="fragment highlight-blue" -->
-- ES modules
+- JavaScript modules
 
 Notes:
 From the beginning, you probably noticed that we have always written our component markup inside strings.
@@ -750,3 +750,154 @@ whereas calling innerHTML on the shadowRoot will parse the HTML for each instanc
 
 Notes:
 HTML templates are supported by all major modern browsers.
+
+---
+
+## Specifications
+
+- Custom elements
+- Shadow DOM
+- HTML templates
+- JavaScript modules <!-- .element: class="fragment highlight-blue" -->
+
+Notes:
+Now we are happy to be able to write HTML markup outside of strings,
+but as our app or component library grows, it will be less convenient to maintain all those templates in a single HTML file.
+Unless that's what you call Single Page Application, right?
+Fortunately, JavaScript Modules enable web components to be developed in a modular way that is in alignment with other industry accepted implementations for JavaScript application development.
+
+---
+
+index.html
+
+```html
+<script type="module" src="./hello-world.js"></script>
+```
+
+hello-world.js
+
+```js
+import { helloWorldTemplateId } from './constants.js';
+
+const template = document.querySelector(`#${helloWorldTemplateId}`);
+
+class HelloWorld extends HTMLElement {
+  ...
+}
+
+customElements.define('hello-world', HelloWorld);
+```
+
+constants.js
+
+```js
+export const helloWorldTemplateId = 'hello-world-template';
+```
+
+Notes:
+By adding the type "module" in the script tag, the referenced JavaScript file can use the keywords import and export.
+An error is raised if the JavaScript file contains these keywords and the type "module" is missing from the script tag.
+This example use a constant.js file just to demonstrate the usage of export.
+
+---
+
+![Caniuse JavaScript modules](assets/caniuse-javascript-modules.png)
+
+Notes:
+JavaScript modules are also supported on every major modern browsers.
+
+---
+
+index.html
+
+```html
+<template id="hello-world-template">
+  <h1>Hello, World!</h1>
+</template>
+
+<script type="module" src="./hello-world.js"></script>
+```
+
+hello-world.js
+
+```js
+const template = document.querySelector('#hello-world-template');
+
+class HelloWorld extends HTMLElement {
+  ...
+}
+```
+
+Notes:
+You might have noticed that even after using JavaScript module,
+we still have a part of our component declaration in the HTML file: the HTML template.
+How could we move that code as a part of our component file?
+That is currently the biggest missing feature of the web component specs.
+For a while, HTML imports was a spec draft allowing us to import HTML including style and script tags,
+but they have been deprecated since then.
+Now the most promising specs are HTML modules, CSS modules and constructable stylesheets,
+but they are currently at proposal or draft step.
+
+---
+
+hello-world.js
+
+```js
+const template = document.createElement('template');
+template.innerHTML = `
+  <h1>Hello, World!</h1>
+`;
+
+class HelloWorld extends HTMLElement {
+  constructor() {
+    super();
+    this.attachShadow({ mode: 'open' });
+    this.shadowRoot.appendChild(template.content.cloneNode(true));
+  }
+}
+
+customElements.define('hello-world', HelloWorld);
+```
+
+Notes:
+So of today, we still have no other option than implementing our template markup in a string!!!
+You might be wondering then: why do we still use an HTML template if we define its markup in a string.
+The only reason is to prevent the browser from parsing the markup each time the component is instantiated.
+
+---
+
+![Tag comment HTML](assets/tag-comment-html.png)
+
+Notes:
+As we are currently stuck with strings to define our component markup,
+we can at least make our life easier with that small trick:
+Use a tag comment containing HTML right before the template string.
+Those are handled by Prettier and some extensions exist (on VSCode for example)
+to add code highlight in your IDE.
+
+---
+
+![JavaScript module](assets/javascript-module.png)
+
+Notes:
+When running the previous example, you can notice that several files are served in cascade.
+That's because the browser needs to download each file to discover what file he needs to download afterward.
+Even with HTTP/2, this kind of case require the browser to download files sequentially.
+To get rid of this and somehow optimize resource loading, you can either:
+
+- preload the files,
+- reference all your js files in a single one like index.js that will be the entry point of your component library,
+  and use HTTP/2 to load them in parallel
+- use a bundler.
+
+---
+
+![Rollup](assets/rollup.jpg)
+
+Notes:
+Rollup is a really good candidate for components libraries because it is able to:
+
+- merge your js files when using the native JavaScript modules
+- output native JavaScript modules
+- reduce the size of your library through tree shaking to remove some unused stuff
+- and of course minify your code
