@@ -910,6 +910,75 @@ Rollup is a really good candidate for components libraries because it is able to
 
 ---
 
+## Usage in React
+
+```jsx
+import React from 'react';
+
+export default function App() {
+  return <hello-world />;
+}
+```
+
+https://codesandbox.io/s/webcomponent-react-oq375
+
+Notes:
+Web components, once the JavaScript file has been loaded and the web component defined,
+can be used in React as any other regular HTML tag.
+
+---
+
+## Usage in Vue
+
+```html
+<template>
+  <hello-world></hello-world>
+</template>
+
+<script>
+  export default {
+    name: 'App'
+  };
+</script>
+```
+
+https://codesandbox.io/s/webcomponent-vue-gdk8c
+
+Notes:
+As for React, you just need to load the JavaScript file defining your web component,
+and it can be used without additional effort.
+
+---
+
+## Usage in Angular
+
+app.module.ts
+
+```ts
+import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from "@angular/core";
+...
+
+@NgModule({
+  ...
+  schemas: [CUSTOM_ELEMENTS_SCHEMA]
+})
+export class AppModule {}
+```
+
+app.component.html
+
+```html
+<hello-world></hello-world>
+```
+
+https://codesandbox.io/s/webcomponent-angular-nci8g
+
+Notes:
+In Angular, first you have to add CUSTOM_ELEMENTS_SCHEMA to allow usage of custom elements.
+Then, as for React and Vue, you can just use your new tag in a template.
+
+---
+
 ## LitElement
 
 ![LitElement](assets/lit-element.png)
