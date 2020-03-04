@@ -907,3 +907,30 @@ Rollup is a really good candidate for components libraries because it is able to
 - output native JavaScript modules
 - reduce the size of your library through tree shaking to remove some unused stuff
 - and of course minify your code
+
+---
+
+## LitElement
+
+![LitElement](assets/lit-element.png)
+
+Notes:
+If you would like to produce web components to share them with different JavaScript framework,
+and avoid handling properties and attributes updates by yourself,
+Several libraries can provide you with good alternatives, without adding to much extra weight.
+LitElement is maintained by Polymer team.
+This is a simple base class for creating fast, lightweight components.
+The syntax is pretty close to what we finally ended up, so really close to the standard,
+LitElement rely on tagged template strings declared with lit-html to only re-render the dynamic parts of your UI.
+
+---
+
+## Stencil
+
+![Stencil](assets/stencil.png) <!-- .element: height="520" -->
+
+Notes:
+Stencil has been developed by Ionic team to produce web components so Ionic Framework can be used
+with React, Angular and Vue is in progress.
+Stencil is presented as a compiler that generates web components, embedding Virtual DOM features.
+The components markup is developed in JSX.
