@@ -872,6 +872,8 @@ The only reason is to prevent the browser from parsing the markup each time the 
 
 ---
 
+Syntax highlighting
+
 ![Tag comment HTML](assets/tag-comment-html.png)
 
 Notes:
@@ -882,6 +884,8 @@ Those are handled by Prettier and some extensions exist (on VSCode for example)
 to add code highlight in your IDE.
 
 ---
+
+Sequential loading
 
 ![JavaScript module](assets/javascript-module.png)
 
@@ -907,6 +911,26 @@ Rollup is a really good candidate for components libraries because it is able to
 - output native JavaScript modules
 - reduce the size of your library through tree shaking to remove some unused stuff
 - and of course minify your code
+
+---
+
+## Testing
+
+![Karam](assets/karma.png)
+
+<span style="color: #98445c; font-weight: bold; position: relative; left: 172px; bottom: 60px">Jest</span>
+![Jest & Puppeteer](assets/jest-puppeteer.png) <!-- .element: height="300" -->
+
+Notes:
+Before february 2020, jsdom did not handle custom elements.
+So to test web component, we had to test in a real web browser,
+
+- so either in Karma which run tests in a browser
+- or in Jest, by using a tool like Puppeteer to run the tests in a real web browser.
+
+Since recently in february, custom elements support has been added in jsdom.
+The version of jsdom including custom elements is not yet used by the stable version of Jest,
+but the next one should be compatible, so we should be able to test web components in Jest without Puppeteer soon.
 
 ---
 
