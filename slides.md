@@ -1,4 +1,10 @@
-## Title
+<!-- .slide: data-background-color="#000000" data-background-image="assets/title.jpg" data-background-opacity="0.2" -->
+
+# The State of<br>Web Components<br>in 2020
+
+Sébastien Jalliffier Verne
+
+https://github.com/volcomix/webcomponents
 
 Notes:
 Hello, my name is Sébastien and I work at Criteo as a full stack engineer.
@@ -9,10 +15,10 @@ That's exactly what I would like to share with you today. Learn some standards, 
 
 ---
 
-![Screenshots mixing various basic components]()
+![Screenshots mixing various basic components](assets/basic-components.png)
 
 Notes:
-Let's say you need to create basic UI components and you would like to share them between different projects.
+Let's say you need to create basic UI elements and you would like to share them between different projects.
 Each project being implemented with various libraries or frameworks,
 Like our favorite ones: React, Vue or Angular for example.
 
@@ -20,63 +26,63 @@ What can we do?
 
 ---
 
-![Material Design]()
+![Material Design](assets/material-design.png)
 
 Notes:
 One possibility is to write a spec...
 
 ---
 
-![Material UI]()
+![Material UI](assets/material-ui.png)
 
 Notes:
 Implement it 3 times...
 
 ---
 
-![Vuetify]()
+![Vuetify](assets/vuetify.png)
 
 Notes:
 With different implementation and inconsistent decisions...
 
 ---
 
-![Angular Material]()
+![Angular Material](assets/angular-material.png)
 
 Notes:
 And each implementation evolve at its own speed so all are not up to date in the same time regarding the spec.
 
 ---
 
-![Bootstrap]()
+![Bootstrap](assets/bootstrap.png)
 
 Notes:
 Another possibility is to create a library using JQuery...
 
 ---
 
-![React Bootstrap]()
+![React Bootstrap](assets/react-bootstrap.png)
 
 Notes:
 And implement 3 wrappers...
 
 ---
 
-![BootstrapVue]()
+![BootstrapVue](assets/bootstrap-vue.png)
 
 Notes:
 Removing jQuery 3 times...
 
 ---
 
-![ng-bootstrap]()
+![ng-bootstrap](assets/ng-bootstrap.png)
 
 Notes:
 And once again each of those is updated at its own speed.
 
 ---
 
-![Ionic Framework]()
+![Ionic Framework](assets/ionic.png) <!-- .element: height="200" -->
 
 Notes:
 Or...
@@ -892,7 +898,7 @@ To get rid of this and somehow optimize resource loading, you can either:
 
 ---
 
-![Rollup](assets/rollup.jpg)
+![Rollup](assets/rollup.jpg) <!-- .element: height="300" -->
 
 Notes:
 Rollup is a really good candidate for components libraries because it is able to:
